@@ -3,6 +3,10 @@ import React from 'react';
 import Admin from "./Admin"
 import Formations from "./Formations"
 import Informations from "./Informations"
+import Achats from "./Achats"
+import Clients from "./Clients"
+import Utilisateurs from "./Utilisateurs"
+import Employes from "./Employes"
 
 const axios = require('axios').default;
 const HOST = 'http://localhost:1337/api/';
@@ -137,6 +141,10 @@ const Main = () => {
         <Route exact path='/Admin' element={<Admin/>}/>
         <Route exact path='/Formations' element={<Formations/>}/>
         <Route exact path='/Informations' element={<Informations />}/>
+        <Route exact path='/Achats' element={<Achats />}/>
+        <Route exact path='/Clients' element={<Clients />}/>
+        <Route exact path='/Employes' element={<Employes />}/>
+        <Route exact path='/Utilisateurs' element={<Utilisateurs />}/>
     </Routes>
   );
 }

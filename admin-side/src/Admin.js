@@ -50,6 +50,54 @@ function Admin() {
 
           <li class="my-px">
             <a
+              href="/Achats"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
+            >
+              <span class="flex items-center justify-center text-lg text-yellow-600">
+                <ion-icon name="cart-sharp"></ion-icon>
+              </span>
+              <span class="ml-3">Achats</span>
+            </a>
+          </li>
+
+          <li class="my-px">
+            <a
+              href="/Clients"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
+            >
+              <span class="flex items-center justify-center text-lg text-yellow-600">
+                <ion-icon name="people-sharp"></ion-icon>
+              </span>
+              <span class="ml-3">Clients</span>
+            </a>
+          </li>
+
+          <li class="my-px">
+            <a
+              href="/Employes"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
+            >
+              <span class="flex items-center justify-center text-lg text-yellow-600">
+                <ion-icon name="man-sharp"></ion-icon>
+              </span>
+              <span class="ml-3">Employés</span>
+            </a>
+          </li>
+
+          <li class="my-px">
+            <a
+              href="/Utilisateurs"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
+            >
+              <span class="flex items-center justify-center text-lg text-yellow-600">
+                <ion-icon name="people-circle-outline"></ion-icon>
+              </span>
+              <span class="ml-3">Utilisateurs</span>
+            </a>
+          </li>
+
+          <li class="my-px">
+            <a
               href="/"
               class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
             >

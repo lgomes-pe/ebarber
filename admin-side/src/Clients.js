@@ -1,5 +1,5 @@
 import React from "react";
-function Formations() {
+function Clients() {
     return (
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
     <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-600">
@@ -27,7 +27,7 @@ function Formations() {
           <li class="my-px">
             <a
               href="/Formations"
-              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
             >
               <span class="flex items-center justify-center text-lg text-yellow-600">
                 <ion-icon name="school"></ion-icon>
@@ -48,6 +48,7 @@ function Formations() {
             </a>
           </li>
 
+
           <li class="my-px">
             <a
               href="/Achats"
@@ -63,7 +64,8 @@ function Formations() {
           <li class="my-px">
             <a
               href="/Clients"
-              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+
             >
               <span class="flex items-center justify-center text-lg text-yellow-600">
                 <ion-icon name="people-sharp"></ion-icon>
@@ -130,7 +132,7 @@ function Formations() {
         </div>
       </header>
       <div class="main-content flex flex-col flex-grow p-4">
-        <h1 class="font-bold text-2xl text-gray-700">Formations</h1>
+        <h1 class="font-bold text-2xl text-gray-700">Clients</h1>
 
         <div
           class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4"
@@ -144,4 +146,4 @@ function Formations() {
     );
 }
 
-export default Formations;
+export default Clients;
