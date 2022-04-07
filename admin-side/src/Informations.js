@@ -1,5 +1,5 @@
 import React from "react";
-function Admin() {
+function Informations() {
     return (
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
     <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-600">
@@ -15,7 +15,7 @@ function Admin() {
           <li class="my-px">
             <a
               href="/Admin"
-              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               <span class="flex items-center justify-center text-lg text-yellow-600">
                 <ion-icon name="cut-sharp"></ion-icon>
@@ -39,7 +39,7 @@ function Admin() {
           <li class="my-px">
             <a
               href="/Informations"
-              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100"
             >
               <span class="flex items-center justify-center text-lg text-yellow-600">
                 <ion-icon name="person"></ion-icon>
@@ -82,7 +82,7 @@ function Admin() {
         </div>
       </header>
       <div class="main-content flex flex-col flex-grow p-4">
-        <h1 class="font-bold text-2xl text-gray-700">Prestations</h1>
+        <h1 class="font-bold text-2xl text-gray-700">Informations</h1>
 
         <div
           class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4"
@@ -96,4 +96,4 @@ function Admin() {
     );
 }
 
-export default Admin;
+export default Informations;

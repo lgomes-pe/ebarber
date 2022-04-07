@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
-const username = "Master";
-const password = "coucou1";
+const username = "ok@yes.com";
+const password = "ouidemain";
 const HOST = 'http://localhost:1337/api/';
 
 /* === Fonctions === */
@@ -19,9 +19,11 @@ async function login(user, pwd){
 /* === Login === */
 
 login(username, password).then(res => { // Requete pour s'authentifier sur le backend
+    console.log(username)
+    console.log(password)
     var id_login = res.user.id;
 
-    axios.get(HOST + 'employees?populate=*&filters[user][id][$eq]=' + id_login, { 
+    axios.get(HOST + 'employees?populate=*&filters[user][id][$eq]=' + id_login, {
         headers: {},
         data : ''
     }).then((response) => {
@@ -29,6 +31,7 @@ login(username, password).then(res => { // Requete pour s'authentifier sur le ba
         console.log("connexion possible!");
         console.log(data_user);
     }).catch(() => {
+
         console.log("Il y a un probleme...");
     });
 
