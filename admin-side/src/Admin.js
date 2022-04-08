@@ -1,5 +1,7 @@
 import React from "react";
 import CategoriesBuilder from "./categoriesBuilder";
+
+
 function Admin() {
     return (
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
@@ -130,23 +132,24 @@ function Admin() {
           </div>
         </div>
       </header>
-      <div class="main-content flex flex-col flex-grow p-4">
+      <div class="main-content bg-gray-100 flex flex-col flex-grow p-4">
         <div class= "flex items-center justify-between mb-4 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0">
             <h1 class="font-bold text-2xl text-gray-700">Prestations</h1>
             <div>
-                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-600 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-6 py-2 text-sm">Ajouter</button>
+            <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-gray-400 ml-2 sm:ml-3 font-normal focus:outline-none bg-gray-200 dark:hover:bg-gray-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-gray-600 px-6 py-2 text-sm">Ajouter une catégorie</button>
+                <button class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:bg-indigo-500 hover:bg-indigo-500 ml-2 sm:ml-3 font-normal focus:outline-none bg-indigo-600 dark:hover:bg-indigo-700 transition duration-150 ease-in-out  dark:bg-indigo-600 rounded text-white px-6 py-2 text-sm">Ajouter une prestation</button>
             </div>
         </div>
 
 
 
         <div
-          class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4">
-            <div class="container flex flex-col mx-auto h-full">
-                {<CategoriesBuilder/>}
+          class="flex flex-col flex-grow bg-white rounded mt-4">
+
+            <CategoriesBuilder/>
 
 
-            </div>
+
         </div>
       </div>
       <footer class="footer px-4 py-6">
