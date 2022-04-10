@@ -12,15 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "email": {
-      "type": "email",
-      "required": true,
-      "unique": true
-    },
-    "password": {
-      "type": "string",
-      "required": true
-    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
@@ -29,8 +20,7 @@
     "reservations": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::reservation.reservation",
-      "mappedBy": "client"
+      "target": "api::reservation.reservation"
     },
     "certifications": {
       "type": "relation",

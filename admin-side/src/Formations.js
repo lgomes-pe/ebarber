@@ -1,7 +1,7 @@
 import React from "react";
 function Formations() {
     return (
-<div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
+<div class="flex flex-row min-h-screen overflow-hidden bg-gray-100 text-gray-800">
     <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-600">
       <div class="sidebar-header flex items-center justify-center py-4">
         <img

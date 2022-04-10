@@ -4,7 +4,8 @@
   "info": {
     "singularName": "prestation",
     "pluralName": "prestations",
-    "displayName": "Prestation"
+    "displayName": "Prestation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -26,6 +27,12 @@
     "description": {
       "type": "richtext",
       "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::categorie.categorie",
+      "inversedBy": "prestations"
     }
   }
 }

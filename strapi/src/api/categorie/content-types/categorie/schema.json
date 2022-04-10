@@ -24,7 +24,8 @@
     "prestations": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::prestation.prestation"
+      "target": "api::prestation.prestation",
+      "mappedBy": "category"
     }
   }
 }
