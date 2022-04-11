@@ -89,6 +89,8 @@ export default function DeleteModal({ prestId, isCharged, setCharged }) {
                           console.log(
                             "prestation\n " + prestation + "\nsuppr!"
                           );
+                          setOpen(false);
+                          setCharged(false);
                         })
                         .catch(() => {
                           console.log(
@@ -96,8 +98,6 @@ export default function DeleteModal({ prestId, isCharged, setCharged }) {
                               prestId
                           );
                         });
-                      setOpen(false);
-                      setCharged(false);
                     }}
                   >
                     Supprimer

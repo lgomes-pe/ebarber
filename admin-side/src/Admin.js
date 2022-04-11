@@ -169,23 +169,9 @@ function Admin() {
               </div>
             </div>
           </header>
-          <div class="main-content bg-gray-100 flex flex-col flex-grow p-4">
-            <div class="flex items-center justify-between mb-4 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0">
-              <h1 class="font-bold text-2xl text-gray-700">Prestations</h1>
-              <div class="flex">
-                <CreateCatModal />
-                <CreatePrestModal
-                  catégories={categories_list.map(
-                    (item) => item.attributes.name
-                  )}
-                />
-              </div>
-            </div>
 
-            <div class="flex flex-col flex-grow bg-white rounded mt-4">
-              <CategoriesBuilder />
-            </div>
-          </div>
+          <CategoriesBuilder />
+
           <footer class="footer px-4 py-6"></footer>
         </main>
       </div>

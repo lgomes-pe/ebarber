@@ -28,8 +28,6 @@ export default function EditModal({
     };
   }
 
-  console.log("PREST ID EDITMODAL", prestId);
-
   function EditCall({
     prestIdP,
     titreP,
@@ -90,6 +88,8 @@ export default function EditModal({
       .then(function (response) {
         var prestation = JSON.stringify(response.data); // prestation modifiée
         console.log("La prestation a été modifié:\n" + prestation);
+        setOpen(false);
+        setCharged(false);
       })
       .catch(() => {
         console.log(
@@ -220,8 +220,8 @@ export default function EditModal({
                         durée,
                         prix
                       );
-                      setCharged(false);
                       setOpen(false);
+                      setCharged(false);
                     }}
                   >
                     Modifier
