@@ -1,5 +1,8 @@
 import React from "react";
 import AchatsBuilder from "./achatsBuilder";
+import { useLocation, useNavigate } from "react-router-dom";
+import UserInfoHeader from "./userInfoHeader";
+import DisconnectComponent from "./disconnectComponent";
 
 function Achats() {
   return (
@@ -98,41 +101,13 @@ function Achats() {
               </a>
             </li>
 
-            <li class="my-px">
-              <a
-                href="/"
-                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
-              >
-                <span class="flex items-center justify-center text-lg text-red-500">
-                  <ion-icon name="log-out-outline"></ion-icon>
-                </span>
-                <span class="ml-3">Déconnexion</span>
-              </a>
-            </li>
+            <DisconnectComponent />
           </ul>
         </div>
       </aside>
       <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <header class="header bg-white shadow py-4 px-4">
-          <div class="header-content flex items-center flex-row">
-            <div class="flex ml-auto">
-              <a href class="flex flex-row items-center">
-                <img
-                  src="https://pbs.twimg.com/profile_images/378800000298815220/b567757616f720812125bfbac395ff54_normal.png"
-                  alt
-                  class="h-10 w-10 bg-gray-200 border rounded-full"
-                />
-                <span class="flex flex-col ml-2">
-                  <span class="truncate w-20 font-semibold tracking-wide leading-none">
-                    John Doe
-                  </span>
-                  <span class="truncate w-20 text-gray-500 text-xs leading-none mt-1">
-                    Manager
-                  </span>
-                </span>
-              </a>
-            </div>
-          </div>
+          <UserInfoHeader />
         </header>
         <div class="main-content flex flex-col flex-grow p-4">
           <h1 class="font-bold text-2xl text-gray-700">Achats</h1>

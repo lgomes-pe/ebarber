@@ -126,11 +126,11 @@ function Prestations() {
                               </td>
                               <td class="pl-16">
                                 <div>
-                                  <p class="text-sm font-semibold leading-none text-right text-gray-800 dark:text-white ">
+                                  <p class="text-lg font-semibold leading-none text-right text-gray-800 dark:text-white ">
                                     {prest.attributes.price + " €"}
                                   </p>
                                   <div class="flex items-center justify-end px-2 py-1 mt-2 rounded-full">
-                                    <p class="text-xs leading-3 text-green-700">
+                                    <p class="text-s leading-3 text-green-700">
                                       {prest.attributes.duration + " h"}
                                     </p>
                                   </div>

@@ -115,6 +115,7 @@ export default function CreateCatModal({ isCharged, setCharged }) {
                       <form className="mt-6">
                         <div className="flex-col items-center">
                           <input
+                            onChange={() => setShow(false)}
                             id="titleField"
                             placeholder="Titre"
                             className="w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"

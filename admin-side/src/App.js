@@ -13,6 +13,7 @@ import Achats from "./Achats";
 import Clients from "./Clients";
 import Utilisateurs from "./Utilisateurs";
 import Employes from "./Employes";
+import { data } from "autoprefixer";
 
 const axios = require("axios").default;
 const HOST = "http://localhost:1337/api/";
@@ -27,7 +28,7 @@ async function login(user, pwd) {
   return data;
 }
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [formValue, setformValue] = React.useState({
     email: "",
     password: "",
@@ -55,7 +56,18 @@ const LoginForm = () => {
           .then((response) => {
             const data_user = JSON.stringify(response.data);
             console.log("connexion possible!");
-            console.log(data_user);
+            const data_userP = JSON.parse(data_user);
+
+            const role = data_userP.data[0].attributes.role;
+            const firstName =
+              data_userP.data[0].attributes.user.data.attributes.firstName;
+            const lastName =
+              data_userP.data[0].attributes.user.data.attributes.lastName;
+
+            localStorage.setItem("userRole", role);
+            localStorage.setItem("firstName", firstName);
+            localStorage.setItem("lastName", lastName);
+
             navigate("/Admin");
           })
           .catch(() => {
