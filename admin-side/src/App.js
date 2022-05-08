@@ -64,11 +64,13 @@ const LoginForm = (props) => {
             const lastName =
               data_userP.data[0].attributes.user.data.attributes.lastName;
 
+            localStorage.setItem("workerId", data_userP.data[0].id);
             localStorage.setItem("userRole", role);
             localStorage.setItem("firstName", firstName);
             localStorage.setItem("lastName", lastName);
+            localStorage.setItem("userEmail", data_userP.data[0].attributes.user.data.attributes.email);
 
-            navigate("/Admin");
+            navigate("/Informations");
           })
           .catch(() => {
             console.log(formValue.email);

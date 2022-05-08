@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
 
@@ -7,11 +7,23 @@ var axios = require("axios");
 const SERVER = "http://localhost:1337/";
 const HOST = SERVER + "api/";
 
-export default function CreateFormModal({ setCharged }) {
+
+export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
+  const [draging, setDraging] = useState(false);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const [lenVid, setlenVid] = useState(0);
+  //const [videosTitle, setVideosTitle] = useState([]);
+  //var acc = "";
+  //acc = acc + parsedVideo.data.title + ", \n";
+  const [inputFileValue, setInputFileValue] = useState(null);
+  //const [videoId, setVideoId] = useState(null);
+
+  console.log("MES VIDEOS", videosTitle);
 
   const cancelButtonRef = useRef(null);
+
+  const divDropAreaClassCSS = "flex flex-col items-center justify-center w-full mb-8 border border-dashed border-indigo-700 rounded-lg py-8";
 
   function setupConfig(method, url, headers, data) {
     return {
@@ -22,20 +34,172 @@ export default function CreateFormModal({ setCharged }) {
     };
   }
 
+  function handleInputFileValue(e){
+    setInputFileValue([e.target.files[0]]);
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    //e.stopPropagation()
+    if(e.dataTransfer.files && e.dataTransfer.files.length > 0){
+      if(e.dataTransfer.files[0].name.endsWith(".mp4")){
+        setInputFileValue([e.dataTransfer.files[0]]);
+      }   
+    }
+  };
+
+  const handleDragingLeavingFile = (e) => {
+    e.preventDefault();
+    //e.target.style.background="white";
+    let dropArea = document.getElementById("dropArea");
+    //console.log("dropArea", dropArea);
+    dropArea.setAttribute("class", "bg-white " + divDropAreaClassCSS);
+  }
+
+  const handleDragingOverFile = (e) => {
+    e.preventDefault();
+    let dropArea = document.getElementById("dropArea");
+    //console.log("dropArea", dropArea);
+    dropArea.setAttribute("class", "bg-indigo-100 " + divDropAreaClassCSS);
+  }
+
+  const handleDragOver = (e) => {
+    //console.log("over file", e.dataTransfer.files)
+    e.preventDefault();
+    setDraging(true);
+    //console.log("drag over");
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    setDraging(true);
+    //console.log("drag enter");
+  };
+
+  const handleDragLeave = (e) =>{
+    e.preventDefault();
+    setDraging(false);
+    //console.log("drag leave");
+  };
+
+  function displayListOfVideos(){
+    let acc = "";
+    console.log("ici", lenVid);
+    videosTitle.forEach(function(elm){
+      //console.log("dans la boucle pour acc", elm);
+      acc = acc + elm + "\n";
+    })
+    return acc;
+  }
+
+  useEffect(() =>{
+    console.log("useeffect", inputFileValue);
+    if(inputFileValue != null){
+      /* champs requis pour les videos */
+      const titleV = inputFileValue[0].name;
+      const dataV = new FormData();
+      dataV.append("files", inputFileValue[0]);
+      
+      console.log("modif de inputfile", dataV);
+
+
+      let config = setupConfig('post', HOST + 'upload', { 'Content-Type': 'multipart/form-data' }, dataV);
+
+      axios(config)
+      .then(function (response) {
+        const fileId = response.data[0].id;
+        console.log("La video a été upload:\n" + fileId);
+
+        var data = JSON.stringify({
+          "data": {
+            "title": titleV,
+            "file": fileId
+          }
+        });
+
+        let config2 = setupConfig('post', HOST + 'videos/', { 'Content-Type': 'application/json' }, data);
+
+        axios(config2)
+        .then(function (response) {
+          var video = JSON.stringify(response.data);
+          var parsedVideo = JSON.parse(video);
+          console.log("La video a été ajouté :\n" + parsedVideo.data.id);
+
+          if(videoId.length > 0){
+            console.log("ici1")
+            videoId.push(parsedVideo.data.id);
+            console.log("videoId non null", videoId);
+          } else {
+            console.log("ici2")
+            videoId.push(parsedVideo.data.id);
+            console.log("videoId ", videoId);
+          }
+
+          if(videosTitle.includes(parsedVideo.data.attributes.title) == false){
+            videosTitle.push(parsedVideo.data.attributes.title)
+          }
+          alert(`${inputFileValue[0].name} uploaded`);
+          let count = lenVid;
+          setlenVid(count + 1);
+        })
+        .catch(function (error) {
+          console.log("Il y a eu un probleme en essayant d'ajouter la video (peut-être deja défini ?)")
+        });
+      
+    })
+    .catch(function (error) {
+      console.log("Il y a eu un probleme en essayant d'upload la video (peut-être deja défini ?)\n", error);
+    });
+    }
+      
+  }, [inputFileValue])
+  
   function CreateFormCall() {
-    /*
     const titreF = document.getElementById("titleField").value;
     const descriptionF = document.getElementById("descField").value;
-    const prerequisiteF = document.getElementById("prerequisiteField").value;
-    const priceF = document.getElementById("priceField").value;
+    const prixF = document.getElementById("priceField").value;
+    let prereqF = "Il n'y a aucun prerequis pour cette formation.";
 
-    if (titreF.length == 0 || priceF.length == 0) {
-      //Message pour les champs obligatoires avec setShow (useState)
-    } else {
-        //API CALL
+    if (document.getElementById("prereqField").value !== ""){
+      prereqF = document.getElementById("prereqField").value;
     }
-    */
+
+    console.log("Formation", titreF, descriptionF, prixF, prereqF);
+
+    if (
+      titreF.length == 0 ||
+      inputFileValue == null ||
+      prixF.length == 0
+    ) {
+      setShow(true);
+    } else {
+      setShow(false);
+      console.log("videoId", videoId);
+      var dataF = JSON.stringify({
+        "data": {
+          "title": titreF,
+          "description": descriptionF,
+          "prerequisite": prereqF,// prerequisiteF,
+          "price": prixF,
+          "videos": videoId
+        }
+      });
+
+      console.log("DATA F", dataF);
+      var config = setupConfig('post', HOST + 'formations/', { 'Content-Type': 'application/json' }, dataF);
+      
+      axios(config).then(function (response) {
+          var formation = JSON.stringify(response.data); // formation ajoutée
+          console.log("La formation a été ajouté:\n" + formation);
+          setOpen(false);
+          setCharged(false);
+      }).catch(() => {
+          console.log("Il y a eu un probleme en essayant d'ajouter la formation (peut-être deja défini ?)");
+      });
+    }
   }
+
+
   return (
     <div>
       <Transition.Root show={open} as={Fragment}>
@@ -111,15 +275,23 @@ export default function CreateFormModal({ setCharged }) {
                               defaultValue={""}
                             />
                           </div>
-                          <div className="flex w-max items-center space-x-5 mt-4">
+                          <div className="flex w-max items-center space-x-2 mt-3">
                             <input
                               id="priceField"
                               placeholder="Prix"
                               type="number"
                               min={0}
-                              className="w-1/6 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
+                              className="w-3/6 focus:outline-none placeholder-gray-500 py-3 px-2 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                             />
-                            <p className="font-semibold">€</p>
+                            <p className="font-semibold mr-3">€</p>
+                          </div>
+                          <div className="flex items-center space-x-2 mt-3">
+                            <textarea
+                              id="prereqField"
+                              placeholder="Prerequis"
+                              className="py-3 pl-3 overflow-y-auto h-24 border rounded border-gray-200 w-full resize-none focus:outline-none"
+                              defaultValue={""}
+                            />
                           </div>
                           {show && (
                             <p className="text-sm text-red-600 mt-4">
@@ -127,8 +299,14 @@ export default function CreateFormModal({ setCharged }) {
                             </p>
                           )}
                         </form>
-                        <div className="relative mt-6 bg-white w-full">
-                          <div className="flex flex-col items-center justify-center w-full mb-8 border border-dashed border-indigo-700 rounded-lg py-8">
+                        <div className="relative mt-6 bg-white w-full" 
+                          onChange={handleInputFileValue}
+                          onDrop={handleDrop}
+                          onDragOver={handleDragOver}
+                          onDragEnter={handleDragEnter}
+                          onDragLeave={handleDragLeave}
+                        >
+                          <div id="dropArea" onDrop={handleDragingLeavingFile} onDragOver={handleDragingOverFile} onDragLeave={handleDragingLeavingFile} class={divDropAreaClassCSS}>
                             <div className="cursor-pointer mb-5 text-indigo-700 dark:text-indigo-600">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -162,61 +340,21 @@ export default function CreateFormModal({ setCharged }) {
                               browse{" "}
                             </label>
                             <input
+                              accept=".mp4"
+                              onChange={handleInputFileValue}
                               type="file"
                               className="hidden"
                               name="fileUpload"
                               id="fileUp"
                             />
                           </div>
-                          <div className="flex justify-between items-center w-full">
-                            <div className="items-center text-gray-600 dark:text-gray-400 flex">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="icon icon-tabler icon-tabler-file"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                              </svg>
-                              <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">
-                                Big Project.pdf
-                              </p>
-                              <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">
-                                37%
-                              </p>
-                            </div>
-                            <div className="cursor-pointer text-gray-400">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="icon icon-tabler icon-tabler-x"
-                                width={16}
-                                height={16}
-                                viewBox="0 0 24 24"
-                                strokeWidth={2}
-                                stroke="currentColor"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <line x1={18} y1={6} x2={6} y2={18} />
-                                <line x1={6} y1={6} x2={18} y2={18} />
-                              </svg>
-                            </div>
-                          </div>
+                            <p class="text-center" > {lenVid == 0 ? 'no files uploaded yet' : "File(s) name(s):"}</p>
 
-                          <div className="relative mb-6 mt-4">
-                            <hr className="h-1 rounded-sm bg-gray-200" />
-                            <hr className="absolute top-0 h-1 w-9/12 rounded-sm bg-indigo-700" />
-                          </div>
+                            {(lenVid > 0 &&
+                              videosTitle.map((vid) => {
+                                return(<p class="text-center" > {vid} </p>)
+                              })
+                            )}
                         </div>
                       </div>
                     </div>

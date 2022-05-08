@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EditReservModal from "./editReservModal";
 
 var axios = require("axios");
 const SERVER = "http://localhost:1337/";
@@ -8,6 +9,7 @@ const clients_list = [];
 
 function Clients() {
   /////TODO
+  const role = localStorage.getItem("userRole");
   const [charged, setCharged] = useState(false);
   if (charged != true) {
     axios
@@ -55,9 +57,6 @@ function Clients() {
   if (charged != true) {
     return <p></p>;
   } else {
-    /*if(charged != true){
-        return(<p></p>);
-    }else{*/
     return (
       <div class="container flex overflow-x-auto overflow-y-auto bg-gray-100 items-start hide-scroll-bar mx-auto h-full">
         <div class="w-full">
@@ -71,7 +70,7 @@ function Clients() {
                   <th class="font-bold text-left pl-4">Email</th>
                   <th class="font-bold text-left pl-12">Nom</th>
                   <th class="font-bold text-left pl-12">Prénom</th>
-                  <th class="font-bold text-left pl-20">Réservation</th>
+                  <th class="font-bold text-center pl-20">Réservation</th>
                 </tr>
               </thead>
               <tbody class="w-full">
@@ -103,17 +102,12 @@ function Clients() {
                         {item.attributes.user.data.attributes.firstName}
                       </p>
                     </td>
-                    <td class="pl-20">
-                      <p class="font-medium">
-                        <ion-icon name="cut-sharp"></ion-icon> Crête de
-                        crackhead
-                      </p>
-                      <p class="text-xs leading-3 text-gray-600 dark:text-gray-200  mt-2">
-                        <ion-icon name="calendar-outline"></ion-icon> Date
-                      </p>
-                      <p class="text-xs leading-3 text-gray-600 dark:text-gray-200  mt-2">
-                        <ion-icon name="man-outline"></ion-icon> Employé
-                      </p>
+                    <td class="pl-20 text-center">
+                      <EditReservModal
+                        clientId={item.id}
+                        isCharged={charged}
+                        setCharged={setCharged}
+                      />
                     </td>
                   </tr>
                 ))}

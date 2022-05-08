@@ -1,0 +1,42 @@
+div#table_hour div#degre1:nth-child(2n+1){
+    background-color: #f3f4f6;
+}
+
+div#table_hour div#degre1:nth-child(2n){
+    background-color: #d2d4da;
+}
+
+div#table_hour div#degre1:nth-child(2n+1):hover{
+    background-color: #d8dce2;
+}
+
+div#table_hour div#degre1:nth-child(2n):hover{
+    background-color: #b5bac8;
+}
+
+div#table_hour{
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+}
+
+input:invalid{
+    border: 2px solid red;
+}
+
+p#display_RDV{
+    font-size: 12 px;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-transition: font-size 1s;
+       -moz-transition: font-size 1s;
+         -o-transition: font-size 1s;
+            transition: font-size 1s;
+}
+
+p#display_RDV:hover{
+    overflow: auto;
+    white-space: nowrap;
+    font-size: 17px;
+}

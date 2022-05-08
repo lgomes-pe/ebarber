@@ -4,6 +4,7 @@ export default function UserInfoHeader() {
   const role = localStorage.getItem("userRole");
   const firstName = localStorage.getItem("firstName");
   const lastName = localStorage.getItem("lastName");
+  
 
   console.log("bizarre", lastName);
 

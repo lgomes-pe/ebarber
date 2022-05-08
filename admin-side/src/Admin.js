@@ -13,6 +13,8 @@ const SERVER = "http://localhost:1337/";
 const HOST = SERVER + "api/";
 
 function Admin() {
+  const role = localStorage.getItem("userRole");
+  const adminRole = "Administrateur";
   return (
     <div class="flex flex-row overflow-y-auto min-h-screen bg-gray-100 text-gray-800">
       <aside class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-600">
@@ -23,8 +25,9 @@ function Admin() {
             alt=""
           />
         </div>
-        <div class="sidebar-content px-4 py-6">
+        <div class="w-64 sidebar-content px-4 py-6">
           <ul class="flex flex-col w-full">
+            {role===adminRole &&(
             <li class="my-px">
               <a
                 href="/Admin"
@@ -35,8 +38,8 @@ function Admin() {
                 </span>
                 <span class="ml-3">Prestations</span>
               </a>
-            </li>
-
+            </li>)}
+            {role===adminRole &&(
             <li class="my-px">
               <a
                 href="/Formations"
@@ -47,7 +50,7 @@ function Admin() {
                 </span>
                 <span class="ml-3">Formations</span>
               </a>
-            </li>
+            </li>)}
 
             <li class="my-px">
               <a
@@ -60,7 +63,7 @@ function Admin() {
                 <span class="ml-3">Infos</span>
               </a>
             </li>
-
+            {role===adminRole &&(
             <li class="my-px">
               <a
                 href="/Achats"
@@ -71,8 +74,8 @@ function Admin() {
                 </span>
                 <span class="ml-3">Achats</span>
               </a>
-            </li>
-
+            </li>)}
+            {role===adminRole &&(
             <li class="my-px">
               <a
                 href="/Clients"
@@ -83,8 +86,8 @@ function Admin() {
                 </span>
                 <span class="ml-3">Clients</span>
               </a>
-            </li>
-
+            </li>)}
+            {role===adminRole &&(
             <li class="my-px">
               <a
                 href="/Employes"
@@ -95,25 +98,13 @@ function Admin() {
                 </span>
                 <span class="ml-3">Employés</span>
               </a>
-            </li>
-
-            <li class="my-px">
-              <a
-                href="/Utilisateurs"
-                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:bg-opacity-25 hover:text-white"
-              >
-                <span class="flex items-center justify-center text-lg text-yellow-600">
-                  <ion-icon name="people-circle-outline"></ion-icon>
-                </span>
-                <span class="ml-3">Utilisateurs</span>
-              </a>
-            </li>
+            </li>)}
 
             <DisconnectComponent />
           </ul>
         </div>
       </aside>
-      <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+      <main class="w-64 main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <header class="flex justify-end header bg-white shadow py-4 px-4">
           <UserInfoHeader />
         </header>
