@@ -66,16 +66,15 @@ $RECYCLE.BIN/
 ############################
 
 .tmp
-*.log
-*.sql
-*.sqlite
-*.sqlite3
+
 
 
 ############################
 # Misc.
 ############################
 
+public/uploads/*
+!public/uploads/.gitkeep
 
 ############################
 # Node.js
