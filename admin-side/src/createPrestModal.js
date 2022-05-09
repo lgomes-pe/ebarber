@@ -2,10 +2,9 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 export default function CreatePrestModal({ setCharged, catégories }) {
   const [open, setOpen] = useState(false);
@@ -29,7 +28,7 @@ export default function CreatePrestModal({ setCharged, catégories }) {
     const duréeF = document.getElementById("durationField").value;
     const prixF = document.getElementById("priceField").value;
 
-    console.log("FIELDS", titreF, categorieF, descriptionF, duréeF, prixF);
+    //console.log("FIELDS", titreF, categorieF, descriptionF, duréeF, prixF);
 
     if (
       titreF.length == 0 ||
@@ -50,7 +49,7 @@ export default function CreatePrestModal({ setCharged, catégories }) {
         },
       });
 
-      console.log("DATA P", dataP);
+      //console.log("DATA P", dataP);
       var config = setupConfig(
         "post",
         HOST + "prestations/",
@@ -61,14 +60,12 @@ export default function CreatePrestModal({ setCharged, catégories }) {
       axios(config)
         .then(function (response) {
           var prestation = JSON.stringify(response.data); // prestation ajoutée
-          console.log("La prestation a été ajouté:\n" + prestation);
+          //console.log("La prestation a été ajouté:\n" + prestation);
           setOpen(false);
           setCharged(false);
         })
         .catch(() => {
-          console.log(
-            "Il y a eu un probleme en essayant d'ajouter la prestation (peut-être deja défini ?)"
-          );
+          //console.log( "Il y a eu un probleme en essayant d'ajouter la prestation (peut-être deja défini ?)" );
         });
     }
   }
@@ -143,7 +140,6 @@ export default function CreatePrestModal({ setCharged, catégories }) {
                               <option selected disabled value>
                                 Catégorie
                               </option>
-                              {console.log("LOG OK", catégories)}
                               {catégories.map((item) => (
                                 <option value={item.id}>{item.nom}</option>
                               ))}

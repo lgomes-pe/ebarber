@@ -2,10 +2,9 @@
 import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PencilAltIcon } from "@heroicons/react/solid";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 const reservations_list_client = [];
 
 export default function EditFormModal({
@@ -17,7 +16,7 @@ export default function EditFormModal({
     const [open, setOpen] = useState(false);
     const [retrievedR, setRetrievedR] = useState(false);
 
-    console.log("client id", clientId);
+    //console.log("client id", clientId);
 
     useEffect(() =>{ // Dès qu'une modif se fait sur toggleDay, on met a jour les infos
         if(open == false){
@@ -35,21 +34,21 @@ export default function EditFormModal({
         })
         .then((response) => {
             const client = JSON.stringify(response.data);
-            console.log("Demande du client", clientId, "bien recu!");
+            //console.log("Demande du client", clientId, "bien recu!");
             const parsedClient = JSON.parse(client).data;
-            console.log("liste parsed", parsedClient);
+            //console.log("liste parsed", parsedClient);
             reservations_list_client.length = 0;
             for (let i = 0; i < parsedClient.attributes.reservations.data.length; i++) {
                 reservations_list_client.push(parsedClient.attributes.reservations.data[i]); //ajoute chaque categorie 1 par 1
             }
-            console.log("RESERVATION COURANTE", reservations_list_client);
+            //console.log("RESERVATION COURANTE", reservations_list_client);
             setRetrievedR(true);
         })
         .catch(() => {
-            console.log("Demande du client non reçue...");
+            //console.log("Demande du client non reçue...");
         });
     } else {
-        console.log("le modal n'est pas ouvert");
+        //console.log("le modal n'est pas ouvert");
     }
     
     function deleteReservation(idR){
@@ -59,10 +58,10 @@ export default function EditFormModal({
             data : ''
         }).then(function (response) {
             var reservation = JSON.stringify(response.data); // reservation suppr
-            console.log("reservation\n " + reservation + "\nsuppr!");
+            //console.log("reservation\n " + reservation + "\nsuppr!");
             setOpen(false);
         }).catch(() => {
-            console.log("probleme lors de la suppression de la reservation " + idR);
+            //console.log("probleme lors de la suppression de la reservation " + idR);
         });
     }
 

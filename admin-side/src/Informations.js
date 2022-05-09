@@ -4,10 +4,9 @@ import UserInfoHeader from "./userInfoHeader";
 import DisconnectComponent from "./disconnectComponent";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import './Informations.css';
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 var userAvailability;
 const reservations_list = [];
@@ -43,11 +42,11 @@ function Informations() {
     Sunday : false
   });
 
-  console.log("days onr efresh state", toggleDay);
+  //console.log("days onr efresh state", toggleDay);
 
   function toggleInput(key){
     let val = toggleDay[key];
-    console.log("key", key,"current val", val, "new val", !val);
+    //console.log("key", key,"current val", val, "new val", !val);
     setToggleDay({...toggleDay, [key]:!val});
     //alert("triggered");
   }
@@ -59,7 +58,7 @@ function Informations() {
   }, [toggleDay])
 
   function submitNewAvailability(key, bornInf, bornSup){
-    console.log("" === bornInf);
+    //console.log("" === bornInf);
     if((bornInf === "" && bornSup !== "") || (bornSup === "" && bornInf !== "")){
       alert(`Vous devez renseigner les deux champs de la ligne ${key} pour n'effectuer aucun changement.`);
     } else {
@@ -83,16 +82,16 @@ function Informations() {
       
       axios(config).then(function (response) {
           var employee = JSON.stringify(response.data); // employee modifiée
-          console.log("L'employee a été modifié:\n" + employee);
+          //console.log("L'employee a été modifié:\n" + employee);
           let val = toggleDay[key];
           setToggleDay({...toggleDay, [key]:!val});
       }).catch(() => {
-          console.log("Il y a eu un probleme en essayant de modifier l'employee " + workerId);
+          //console.log("Il y a eu un probleme en essayant de modifier l'employee " + workerId);
       });
     }
   }
 
-  console.log("a ce refresh datareceived:", dataReceived);
+  //console.log("a ce refresh datareceived:", dataReceived);
   if(dataReceived == false){
     axios.get(HOST + 'employees/' + workerId + '?populate[reservations][populate][client][populate]=*', { // Recuperer la liste des employees 
       headers: {},
@@ -100,23 +99,23 @@ function Informations() {
     }).then((response) => {
 
         const employee = JSON.stringify(response.data);
-        console.log("Demande des infos pour l'employé", workerId, "bien reçue.");
+        //console.log("Demande des infos pour l'employé", workerId, "bien reçue.");
         const parsedEmployee = JSON.parse(employee);
         reservations_list.length = 0;
         for (let i = 0; i < parsedEmployee.data.attributes.reservations.data.length; i++) {
           reservations_list.push(parsedEmployee.data.attributes.reservations.data[i]);
         }
-        console.log(parsedEmployee.data.attributes.availability);
-        console.log(parsedEmployee);
-        console.log(reservations_list);
+        //console.log(parsedEmployee.data.attributes.availability);
+        //console.log(parsedEmployee);
+        //console.log(reservations_list);
         userAvailability = parsedEmployee.data.attributes.availability;
         setDataReceived(true);
     }).catch(() => {
-        console.log("Demande des infos pour l'employé", workerId, "non reçue...");
+        //console.log("Demande des infos pour l'employé", workerId, "non reçue...");
     });
   }
 
-  console.log("VOici le worker Id", workerId);
+  //console.log("VOici le worker Id", workerId);
 
   return (
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">

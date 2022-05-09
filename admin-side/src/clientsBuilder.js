@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import EditReservModal from "./editReservModal";
+import { SERVER, HOST } from "./constantes";
 
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 
 const clients_list = [];
 
@@ -20,38 +19,38 @@ function Clients() {
       })
       .then((response) => {
         const clients = JSON.stringify(response.data);
-        console.log("Demande de la liste des clients bien reçue!");
-        console.log(clients);
+        //console.log("Demande de la liste des clients bien reçue!");
+        //console.log(clients);
         const parsedClients = JSON.parse(clients).data;
         for (let i = 0; i < parsedClients.length; i++) {
           clients_list.push(parsedClients[i]); //ajoute chaque categorie 1 par 1
         }
-        console.log("LISTE", clients_list);
+        //console.log("LISTE", clients_list);
         setCharged(true);
 
-        console.log(parsedClients[0]);
-        console.log(parsedClients[0].attributes.user.data.attributes.email); //Client-user-email
-        console.log(
+        //console.log(parsedClients[0]);
+        //console.log(parsedClients[0].attributes.user.data.attributes.email); //Client-user-email
+        /*console.log(
           parsedClients[0].attributes.user.data.attributes.firstName +
             " " +
             parsedClients[0].attributes.user.data.attributes.lastName
-        ); //Client-user-prenom/nom
-        console.log(
+        ); *///Client-user-prenom/nom
+        /*console.log(
           parsedClients[0].attributes.reservations.data[0].attributes.date
-        ); //Client-reservations-date
+        );*/ //Client-reservations-date
 
         // Ce qui suit ne marche pas
-        console.log(
+        /*console.log(
           parsedClients[0].attributes.reservations.data[0].attributes
             .prestations.data[0]
-        ); //Client-reservations-prestation-title ??
-        console.log(
+        );*/ //Client-reservations-prestation-title ??
+        /*console.log(
           parsedClients[0].attributes.reservations.data[0].attributes
             .prestations.data[0].attributes.employees
-        ); //Client-reservations-employee??
+        );*/ //Client-reservations-employee??
       })
       .catch(() => {
-        console.log("Demande de la liste des clients non reçue...");
+        //console.log("Demande de la liste des clients non reçue...");
       });
   }
   if (charged != true) {
@@ -74,7 +73,7 @@ function Clients() {
                 </tr>
               </thead>
               <tbody class="w-full">
-                {console.log("Liste des clients ", clients_list)}
+                
                 {clients_list.map((item) => (
                   <tr
                     tabindex="0"

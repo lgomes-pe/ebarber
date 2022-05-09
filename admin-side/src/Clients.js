@@ -5,8 +5,6 @@ import UserInfoHeader from "./userInfoHeader";
 import DisconnectComponent from "./disconnectComponent";
 
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 
 function Clients() {
   const role = localStorage.getItem("userRole");

@@ -1,11 +1,9 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-//var fs = require("fs");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 
 export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
@@ -19,7 +17,7 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
   const [inputFileValue, setInputFileValue] = useState(null);
   //const [videoId, setVideoId] = useState(null);
 
-  console.log("MES VIDEOS", videosTitle);
+  //console.log("MES VIDEOS", videosTitle);
 
   const cancelButtonRef = useRef(null);
 
@@ -93,14 +91,14 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
   }
 
   useEffect(() =>{
-    console.log("useeffect", inputFileValue);
+    //console.log("useeffect", inputFileValue);
     if(inputFileValue != null){
       /* champs requis pour les videos */
       const titleV = inputFileValue[0].name;
       const dataV = new FormData();
       dataV.append("files", inputFileValue[0]);
       
-      console.log("modif de inputfile", dataV);
+      //console.log("modif de inputfile", dataV);
 
 
       let config = setupConfig('post', HOST + 'upload', { 'Content-Type': 'multipart/form-data' }, dataV);
@@ -108,7 +106,7 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
       axios(config)
       .then(function (response) {
         const fileId = response.data[0].id;
-        console.log("La video a été upload:\n" + fileId);
+        //console.log("La video a été upload:\n" + fileId);
 
         var data = JSON.stringify({
           "data": {
@@ -123,16 +121,16 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
         .then(function (response) {
           var video = JSON.stringify(response.data);
           var parsedVideo = JSON.parse(video);
-          console.log("La video a été ajouté :\n" + parsedVideo.data.id);
+          //console.log("La video a été ajouté :\n" + parsedVideo.data.id);
 
           if(videoId.length > 0){
-            console.log("ici1")
+            //console.log("ici1")
             videoId.push(parsedVideo.data.id);
-            console.log("videoId non null", videoId);
+            //console.log("videoId non null", videoId);
           } else {
-            console.log("ici2")
+            //console.log("ici2")
             videoId.push(parsedVideo.data.id);
-            console.log("videoId ", videoId);
+            //console.log("videoId ", videoId);
           }
 
           if(videosTitle.includes(parsedVideo.data.attributes.title) == false){
@@ -143,12 +141,12 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
           setlenVid(count + 1);
         })
         .catch(function (error) {
-          console.log("Il y a eu un probleme en essayant d'ajouter la video (peut-être deja défini ?)")
+          //console.log("Il y a eu un probleme en essayant d'ajouter la video (peut-être deja défini ?)")
         });
       
     })
     .catch(function (error) {
-      console.log("Il y a eu un probleme en essayant d'upload la video (peut-être deja défini ?)\n", error);
+      //console.log("Il y a eu un probleme en essayant d'upload la video (peut-être deja défini ?)\n", error);
     });
     }
       
@@ -164,7 +162,7 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
       prereqF = document.getElementById("prereqField").value;
     }
 
-    console.log("Formation", titreF, descriptionF, prixF, prereqF);
+    //console.log("Formation", titreF, descriptionF, prixF, prereqF);
 
     if (
       titreF.length == 0 ||
@@ -174,7 +172,7 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
       setShow(true);
     } else {
       setShow(false);
-      console.log("videoId", videoId);
+      //console.log("videoId", videoId);
       var dataF = JSON.stringify({
         "data": {
           "title": titreF,
@@ -185,16 +183,16 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
         }
       });
 
-      console.log("DATA F", dataF);
+      //console.log("DATA F", dataF);
       var config = setupConfig('post', HOST + 'formations/', { 'Content-Type': 'application/json' }, dataF);
       
       axios(config).then(function (response) {
           var formation = JSON.stringify(response.data); // formation ajoutée
-          console.log("La formation a été ajouté:\n" + formation);
+          //console.log("La formation a été ajouté:\n" + formation);
           setOpen(false);
           setCharged(false);
       }).catch(() => {
-          console.log("Il y a eu un probleme en essayant d'ajouter la formation (peut-être deja défini ?)");
+          //console.log("Il y a eu un probleme en essayant d'ajouter la formation (peut-être deja défini ?)");
       });
     }
   }

@@ -1,17 +1,26 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 
-export default function CreateEmployeeModal({ setCharged, usersList }) {
+
+export default function CreateEmployeeModal({ setCharged, usersList, employesList }) {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
   const cancelButtonRef = useRef(null);
+
+  function isEmploye(mail){ // renvoie true s'il existe un employé avec cette adresse mail
+    for(let i = 0; i < employesList.length; i++){
+      if(employesList[i].attributes.user.data.attributes.email == mail){
+        //console.log("il y a une occurance : ", employesList[i].attributes.user.data.attributes.email, "pour", employesList[i].attributes.name)
+        return true;
+      }
+    }
+    return false;
+  }
 
   function setupConfig(method, url, headers, data) {
     return {
@@ -25,18 +34,18 @@ export default function CreateEmployeeModal({ setCharged, usersList }) {
   function createEmployeeCall() {
     const emailF = document.getElementById("emailField").value;
     const roleF = document.getElementById("roleField").value;
-    console.log("WOW", usersList);
+    //console.log("WOW", usersList);
     var found = 0;
     for (var i = 0; i < usersList.length; i++) {
-      console.log("SHOWME", usersList[i].email, "NOW", emailF);
-      if (usersList[i].email == emailF) {
+      //console.log("SHOWME", usersList[i].email, "NOW", emailF, "RES", isEmploye(usersList[i].email) );
+      if (usersList[i].email == emailF && isEmploye(usersList[i].email) == false) { // Cas d'ajout d'employé
         found = 1;
-        console.log("SWAG");
+        //console.log("SWAG");
         const availabilityF = {
           Monday: "null",
           Tuesday: "null",
           Wednesday: "null",
-          Thursday: "8-10",
+          Thursday: "null",
           Friday: "null",
           Saturday: "null",
           Sunday: "null",
@@ -55,7 +64,7 @@ export default function CreateEmployeeModal({ setCharged, usersList }) {
             },
           });
 
-          console.log("DATA P", dataP);
+          //console.log("DATA P", dataP);
           var config = setupConfig(
             "post",
             HOST + "employees/",
@@ -66,14 +75,12 @@ export default function CreateEmployeeModal({ setCharged, usersList }) {
           axios(config)
             .then(function (response) {
               var employee = JSON.stringify(response.data);
-              console.log("L'employé a été ajouté:\n" + employee);
+              //console.log("L'employé a été ajouté:\n" + employee);
               setOpen(false);
               setCharged(false);
             })
             .catch(() => {
-              console.log(
-                "Il y a eu un problème en essayant d'ajouter l'employé"
-              );
+              //console.log( "Il y a eu un problème en essayant d'ajouter l'employé" );
             });
         }
       }
@@ -163,7 +170,7 @@ export default function CreateEmployeeModal({ setCharged, usersList }) {
                         {(show || show2) && (
                           <p className="text-sm text-red-600 mt-4">
                             Cette adresse email ne correspond pas à un
-                            utilisateur OU certains champs sont vides.
+                            utilisateur OU certains champs sont vides OU cet employé existe déjà.
                           </p>
                         )}
                       </form>

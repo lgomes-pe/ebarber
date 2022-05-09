@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import CreateFormModal from "./createFormModal";
 import DeleteFormModal from "./deleteFormModal";
 import EditFormModal from "./editFormModal";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 
 const formations_list = [];
-
 
 export default function FormationsBuilder() {
   const [charged, setCharged] = useState(false);
@@ -23,16 +20,16 @@ export default function FormationsBuilder() {
       })
       .then((response) => {
         const formations = JSON.stringify(response.data);
-        console.log("Demande de la liste des formations bien reçue!");
+        //console.log("Demande de la liste des formations bien reçue!");
         const parsedFormations = JSON.parse(formations).data;
         for (let i = 0; i < parsedFormations.length; i++) {
           formations_list.push(parsedFormations[i]);
         }
         setCharged(true);
-        console.log("FORMALIST", formations_list);
+        //console.log("FORMALIST", formations_list);
       })
       .catch(() => {
-        console.log("Demande de la liste des formations non reçue...");
+        //console.log("Demande de la liste des formations non reçue...");
       });
   }
 
@@ -104,7 +101,6 @@ export default function FormationsBuilder() {
                         {
                           item.attributes.videos.data.map((video) => (
                             <tr>
-                              {console.log(video)}
                               <p ><a href={SERVER + video.attributes.file.data.attributes.url.replace(/^./, "")} class="hover:font-bold  hover:text-indigo-600" > {video.attributes.title.substring(0,video.attributes.title.length - 4)}</a></p>
                             </tr>
                         ))}

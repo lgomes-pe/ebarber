@@ -4,10 +4,6 @@ import UserInfoHeader from "./userInfoHeader";
 import DisconnectComponent from "./disconnectComponent";
 import FormationsBuilder from "./formationsBuilder";
 
-var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
-
 function Formations() {
   const role = localStorage.getItem("userRole");
   const adminRole = "Administrateur";

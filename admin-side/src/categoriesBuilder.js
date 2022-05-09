@@ -4,15 +4,14 @@ import DeleteModal from "./deleteModal";
 import EditModal from "./editModal";
 import CreatePrestModal from "./createPrestModal";
 import CreateCatModal from "./createCatModal";
+import { SERVER, HOST } from "./constantes";
 
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 
 const categories_list = [];
 
 function Prestations() {
-  console.log("page charged");
+  //console.log("page charged");
   const [charged, setCharged] = useState(false);
 
   if (charged != true) {
@@ -25,17 +24,17 @@ function Prestations() {
       })
       .then((response) => {
         const categories = JSON.stringify(response.data);
-        console.log("Demande de la liste des categories bien reçue!");
+        //console.log("Demande de la liste des categories bien reçue!");
 
         const parsedCategories = JSON.parse(categories).data;
         for (let i = 0; i < parsedCategories.length; i++) {
           categories_list.push(parsedCategories[i]); //ajoute chaque categorie 1 par 1
         }
         setCharged(true);
-        console.log(categories_list);
+        //console.log(categories_list);
       })
       .catch(() => {
-        console.log("Demande de la liste des categories non reçue...");
+        //console.log("Demande de la liste des categories non reçue...");
       });
   }
 
@@ -70,7 +69,6 @@ function Prestations() {
                     >
                       {item.attributes.name}
                     </p>
-                    {console.log("catId_base", item.name)}
                     <DeleteCatModal
                       catId={item.id}
                       isCharged={charged}
@@ -94,9 +92,7 @@ function Prestations() {
                                     <p class="text-xs md:text-sm leading-none text-gray-600 dark:text-gray-200  mt-2">
                                       {prest.attributes.description}
                                     </p>
-                                    <div class="flex">
-                                      {console.log("ID COURANT", item.id)}
-                                      {console.log("PREST ID ", prest.id)}
+                                    <div class="flex"> 
                                       <EditModal
                                         prestId={prest.id}
                                         currentCat={item.id}

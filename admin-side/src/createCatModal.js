@@ -2,10 +2,9 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/solid";
+import { SERVER, HOST } from "./constantes";
 
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 
 export default function CreateCatModal({ isCharged, setCharged }) {
   const [open, setOpen] = useState(false);
@@ -23,7 +22,7 @@ export default function CreateCatModal({ isCharged, setCharged }) {
   function CreateCatCall() {
     const catNameF = document.getElementById("titleField").value;
     if (catNameF.length == 0) {
-      console.log("Le nom de la catégorie ne peut pas être vide");
+      //console.log("Le nom de la catégorie ne peut pas être vide");
       setShow(true);
     } else {
       setShow(false);
@@ -43,14 +42,12 @@ export default function CreateCatModal({ isCharged, setCharged }) {
       axios(config)
         .then(function (response) {
           var categorie = JSON.stringify(response.data); // categorie ajoutée
-          console.log("La categorie a été ajouté:\n" + categorie);
+          //console.log("La categorie a été ajouté:\n" + categorie);
           setOpen(false);
           setCharged(false);
         })
         .catch(() => {
-          console.log(
-            "Il y a eu un probleme en essayant d'ajouter la categorie (peut-être deja défini ?)"
-          );
+          //console.log( "Il y a eu un probleme en essayant d'ajouter la categorie (peut-être deja défini ?)");
         });
     }
   }

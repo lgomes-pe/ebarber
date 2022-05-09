@@ -14,13 +14,14 @@ import Clients from "./Clients";
 import Utilisateurs from "./Utilisateurs";
 import Employes from "./Employes";
 import { data } from "autoprefixer";
+import { SERVER, HOST } from "./constantes";
 
 const axios = require("axios").default;
-const HOST = "http://localhost:1337/api/";
+
 
 async function login(user, pwd) {
-  console.log(user);
-  console.log(pwd);
+  //console.log(user);
+  //console.log(pwd);
   const { data } = await axios.post(HOST + "auth/local?populate=*", {
     identifier: user,
     password: pwd,
@@ -41,8 +42,8 @@ const LoginForm = (props) => {
     login(formValue.email, formValue.password)
       .then((res) => {
         // Requete pour s'authentifier sur le backend
-        console.log(formValue.email);
-        console.log(formValue.email);
+        //console.log(formValue.email);
+        //console.log(formValue.email);
         var id_login = res.user.id;
 
         axios
@@ -55,7 +56,7 @@ const LoginForm = (props) => {
           )
           .then((response) => {
             const data_user = JSON.stringify(response.data);
-            console.log("connexion possible!");
+            //console.log("connexion possible!");
             const data_userP = JSON.parse(data_user);
 
             const role = data_userP.data[0].attributes.role;
@@ -73,9 +74,9 @@ const LoginForm = (props) => {
             navigate("/Informations");
           })
           .catch(() => {
-            console.log(formValue.email);
-            console.log(formValue.password);
-            console.log("Il y a un probleme...");
+            //console.log(formValue.email);
+            //console.log(formValue.password);
+            //console.log("Il y a un probleme...");
           });
       })
       .catch(() => {

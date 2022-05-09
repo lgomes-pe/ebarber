@@ -2,17 +2,16 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 export default function DeleteCatModal({ catId, isCharged, setCharged }) {
   const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
 
-  console.log("CATID1", catId);
+  //console.log("CATID1", catId);
 
   return (
     <div>
@@ -81,7 +80,7 @@ export default function DeleteCatModal({ catId, isCharged, setCharged }) {
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
-                      console.log("CATID2", catId);
+                      //console.log("CATID2", catId);
                       axios
                         .delete(HOST + "categories/" + catId, {
                           headers: {},
@@ -89,15 +88,12 @@ export default function DeleteCatModal({ catId, isCharged, setCharged }) {
                         })
                         .then(function (response) {
                           var categorie = JSON.stringify(response.data); // categorie suppr
-                          console.log("categorie\n " + categorie + "\nsuppr!");
+                          //console.log("categorie\n " + categorie + "\nsuppr!");
                           setOpen(false);
                           setCharged(false);
                         })
                         .catch(() => {
-                          console.log(
-                            "probleme lors de la suppression de la categorie " +
-                              catId
-                          );
+                          //console.log( "probleme lors de la suppression de la categorie " + catId );
                         });
                     }}
                   >

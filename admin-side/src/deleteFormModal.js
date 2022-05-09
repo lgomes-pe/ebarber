@@ -2,17 +2,16 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 export default function DeleteFormModal({ vidId, uploadedVidId, formId, isCharged, setCharged }) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
 
-  console.log("FormID1", formId);
-  console.log("vidId, uploadedVidId ==>", vidId, uploadedVidId);
+  //console.log("FormID1", formId);
+  //console.log("vidId, uploadedVidId ==>", vidId, uploadedVidId);
 
   return (
     <div>
@@ -81,39 +80,39 @@ export default function DeleteFormModal({ vidId, uploadedVidId, formId, isCharge
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
-                      console.log("FormID2", formId);
+                      //console.log("FormID2", formId);
 
                         axios.delete(HOST + 'upload/files/' + uploadedVidId, {
                             headers: {},
                             data : ''
                         }).then(function (response) {
                             let video = JSON.stringify(response.data); // video suppr d'upload
-                            console.log("video\n " + video + "\nsuppr d'upload!");
+                            //console.log("video\n " + video + "\nsuppr d'upload!");
 
                             axios.delete(HOST + 'videos/' + vidId, {
                                 headers: {},
                                 data : ''
                             }).then(function (response) {
                                 let video_copy = JSON.stringify(response.data); // video suppr
-                                console.log("video\n " + video_copy + "\nsuppr!");
+                                //console.log("video\n " + video_copy + "\nsuppr!");
                             
                                 axios.delete(HOST + 'formations/' + formId, {
                                     headers: {},
                                     data : ''
                                 }).then(function (response) {
                                     var formation = JSON.stringify(response.data); // formation suppr
-                                    console.log("formation\n " + formation + "\nsuppr!");
+                                    //console.log("formation\n " + formation + "\nsuppr!");
                                     setOpen(false);
                                     setCharged(false);
                                 }).catch(() => {
-                                    console.log("probleme lors de la suppression de la formation " + formId);
+                                    //console.log("probleme lors de la suppression de la formation " + formId);
                                 });
 
                             }).catch(() => {
-                                console.log("probleme lors de la suppression de la video " + vidId);
+                                //console.log("probleme lors de la suppression de la video " + vidId);
                             });
                         }).catch(() => {
-                            console.log("probleme lors de la suppression de la video dans upload" + uploadedVidId);
+                            //console.log("probleme lors de la suppression de la video dans upload" + uploadedVidId);
                         });
                     }}
                   >

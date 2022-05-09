@@ -2,10 +2,9 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PencilAltIcon } from "@heroicons/react/solid";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 export default function EditFormModal({
   formId,
@@ -46,16 +45,16 @@ export default function EditFormModal({
         };
         
         var dataF = JSON.stringify(data);
-        console.log("ICI POST DE FORMATION AVEC CE DATA", dataF);
+        //console.log("ICI POST DE FORMATION AVEC CE DATA", dataF);
         var config = setupConfig('put', HOST + 'formations/' + formId, { 'Content-Type': 'application/json' }, dataF);
 
         axios(config).then(function (response) {
             var formation = JSON.stringify(response.data); // formation modifiée
-            console.log("La formation a été modifié:\n" + formation);
+            //console.log("La formation a été modifié:\n" + formation);
             setOpen(false);
             setCharged(false);
         }).catch(() => {
-            console.log("Il y a eu un probleme en essayant de modifier la formation " + formId);
+            //console.log("Il y a eu un probleme en essayant de modifier la formation " + formId);
         });
     }
 

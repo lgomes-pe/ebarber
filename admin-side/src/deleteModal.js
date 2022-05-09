@@ -2,10 +2,9 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 export default function DeleteModal({ prestId, isCharged, setCharged }) {
   const [open, setOpen] = useState(false);
@@ -86,17 +85,17 @@ export default function DeleteModal({ prestId, isCharged, setCharged }) {
                         })
                         .then(function (response) {
                           var prestation = JSON.stringify(response.data); // prestation suppr
-                          console.log(
+                          /*console.log(
                             "prestation\n " + prestation + "\nsuppr!"
-                          );
+                          );*/
                           setOpen(false);
                           setCharged(false);
                         })
                         .catch(() => {
-                          console.log(
+                          /*console.log(
                             "probleme lors de la suppression de la prestation " +
                               prestId
-                          );
+                          );*/
                         });
                     }}
                   >

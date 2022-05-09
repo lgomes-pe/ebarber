@@ -2,10 +2,9 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PencilAltIcon } from "@heroicons/react/solid";
-
+import { SERVER, HOST } from "./constantes";
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 export default function EditModal({
   prestId,
@@ -36,22 +35,22 @@ export default function EditModal({
     duréeP,
     prixP,
   }) {
-    console.log("PREST ID EDITCALL", prestIdP);
+    //console.log("PREST ID EDITCALL", prestIdP);
     const titreF = document.getElementById("titleField").value;
     if (titreF.length > 0) {
       titreP = titreF;
     }
 
-    console.log(
+    /*console.log(
       "value de option",
       document.getElementById("categoryField").value
-    );
+    );*/
 
     const categorieF = document.getElementById("categoryField").value;
     if (categorieF != "true") {
       categorieP = categorieF;
     }
-    console.log("CATEGORIE P", categorieP);
+    //console.log("CATEGORIE P", categorieP);
     const descriptionF = document.getElementById("descField").value;
     if (descriptionF.length > 0) {
       descriptionP = descriptionF;
@@ -75,7 +74,7 @@ export default function EditModal({
       },
     });
 
-    console.log("DATA P", dataP);
+    //console.log("DATA P", dataP);
 
     var config = setupConfig(
       "put",
@@ -87,15 +86,15 @@ export default function EditModal({
     axios(config)
       .then(function (response) {
         var prestation = JSON.stringify(response.data); // prestation modifiée
-        console.log("La prestation a été modifié:\n" + prestation);
+        //console.log("La prestation a été modifié:\n" + prestation);
         setOpen(false);
         setCharged(false);
       })
       .catch(() => {
-        console.log(
+        /*console.log(
           "Il y a eu un probleme en essayant de modifier la prestation " +
             prestId
-        );
+        );*/
       });
   }
 
@@ -171,7 +170,6 @@ export default function EditModal({
                               <option selected disabled value>
                                 Catégorie
                               </option>
-                              {console.log("LOG OK", catégories)}
                               {catégories.map((item) => (
                                 <option value={item.id}>{item.nom}</option>
                               ))}

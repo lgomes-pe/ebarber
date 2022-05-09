@@ -6,7 +6,7 @@ export default function UserInfoHeader() {
   const lastName = localStorage.getItem("lastName");
   
 
-  console.log("bizarre", lastName);
+  //console.log("bizarre", lastName);
 
   return (
     <div class="header-content flex items-center flex-row">

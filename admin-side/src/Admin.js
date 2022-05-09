@@ -8,9 +8,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import UserInfoHeader from "./userInfoHeader";
 import DisconnectComponent from "./disconnectComponent";
 
+import { SERVER, HOST } from "./constantes";
+
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
+
 
 function Admin() {
   const role = localStorage.getItem("userRole");

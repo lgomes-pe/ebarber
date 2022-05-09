@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { SERVER, HOST } from "./constantes";
 
 var axios = require("axios");
-const SERVER = "http://localhost:1337/";
-const HOST = SERVER + "api/";
 const achats_list = [];
 
 function Achats() {
@@ -18,11 +17,11 @@ function Achats() {
         for (let i = 0; i < parsedAchats.length; i++) {
           achats_list.push(parsedAchats[i]);
         }
-        console.log("Demande de la liste des achats bien reçue!");
-        console.log(achats_list);
+        //console.log("Demande de la liste des achats bien reçue!");
+        //console.log(achats_list);
         setCharged(true);
     }).catch(() => {
-        console.log("Demande de la liste des achats non reçue...");
+        //console.log("Demande de la liste des achats non reçue...");
     });
   }
 
