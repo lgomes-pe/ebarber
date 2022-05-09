@@ -76,12 +76,6 @@ $RECYCLE.BIN/
 # Misc.
 ############################
 
-*#
-ssl
-.idea
-nbproject
-public/uploads/*
-!public/uploads/.gitkeep
 
 ############################
 # Node.js
