@@ -18,7 +18,6 @@ import { SERVER, HOST } from "./constantes";
 
 const axios = require("axios").default;
 
-
 async function login(user, pwd) {
   //console.log(user);
   //console.log(pwd);
@@ -69,7 +68,10 @@ const LoginForm = (props) => {
             localStorage.setItem("userRole", role);
             localStorage.setItem("firstName", firstName);
             localStorage.setItem("lastName", lastName);
-            localStorage.setItem("userEmail", data_userP.data[0].attributes.user.data.attributes.email);
+            localStorage.setItem(
+              "userEmail",
+              data_userP.data[0].attributes.user.data.attributes.email
+            );
 
             navigate("/Informations");
           })
@@ -126,17 +128,6 @@ const LoginForm = (props) => {
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Mot de passe"
           />
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between">
-        <div className="text-sm">
-          <a
-            href="#"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            Mot de passe oublié ?
-          </a>
         </div>
       </div>
 
