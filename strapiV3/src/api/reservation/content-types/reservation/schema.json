@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "prestation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::prestation.prestation"
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "employee": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::employee.employee",
+      "inversedBy": "reservations"
+    },
+    "reservationState": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "accepted",
+        "canceled"
+      ],
+      "required": true
+    },
+    "client": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client.client",
+      "inversedBy": "reservations"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "achats",
+  "info": {
+    "singularName": "achat",
+    "pluralName": "achats",
+    "displayName": "Achat"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "formation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::formation.formation"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::client.client"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    }
+  }
+}
