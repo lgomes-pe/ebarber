@@ -33,6 +33,11 @@
       "relation": "manyToOne",
       "target": "api::categorie.categorie",
       "inversedBy": "prestations"
+    },
+    "categorie": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categorie.categorie"
     }
   }
 }

@@ -41,7 +41,7 @@ function Employees() {
             //console.log("Demande de la liste des employés bien reçue!");
             //console.log(employees);
             const parsedEmployees = JSON.parse(employees).data;
-            employee_list.length= 0;
+            employee_list.length = 0;
             for (let i = 0; i < parsedEmployees.length; i++) {
               employee_list.push(parsedEmployees[i]);
             }

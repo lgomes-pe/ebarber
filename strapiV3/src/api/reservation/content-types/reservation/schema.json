@@ -18,7 +18,7 @@
       "target": "api::prestation.prestation"
     },
     "date": {
-      "type": "datetime",
+      "type": "date",
       "required": true
     },
     "employee": {
@@ -41,6 +41,9 @@
       "relation": "manyToOne",
       "target": "api::client.client",
       "inversedBy": "reservations"
+    },
+    "time": {
+      "type": "time"
     }
   }
 }

@@ -11,7 +11,7 @@ export default function CreateEmployeeModal({ setCharged, usersList, employesLis
   const [show2, setShow2] = useState(false);
 
   const cancelButtonRef = useRef(null);
-
+  //console.log("ma liste employee", employesList);
   function isEmploye(mail){ // renvoie true s'il existe un employé avec cette adresse mail
     for(let i = 0; i < employesList.length; i++){
       if(employesList[i].attributes.user.data.attributes.email == mail){
@@ -36,59 +36,66 @@ export default function CreateEmployeeModal({ setCharged, usersList, employesLis
     const roleF = document.getElementById("roleField").value;
     //console.log("WOW", usersList);
     var found = 0;
+    var index = 0;
     for (var i = 0; i < usersList.length; i++) {
       //console.log("SHOWME", usersList[i].email, "NOW", emailF, "RES", isEmploye(usersList[i].email) );
       if (usersList[i].email == emailF && isEmploye(usersList[i].email) == false) { // Cas d'ajout d'employé
         found = 1;
-        //console.log("SWAG");
-        const availabilityF = {
-          Monday: "null",
-          Tuesday: "null",
-          Wednesday: "null",
-          Thursday: "null",
-          Friday: "null",
-          Saturday: "null",
-          Sunday: "null",
-        };
-        const nameF = usersList[i].firstName + " " + usersList[i].lastName;
-        if (nameF.length == 0 || emailF.length == 0 || roleF == "true") {
-          setShow(true);
-        } else {
-          setShow(false);
-          var dataP = JSON.stringify({
-            data: {
-              name: nameF,
-              availability: availabilityF,
-              role: roleF,
-              user: usersList[i],
-            },
-          });
-
-          //console.log("DATA P", dataP);
-          var config = setupConfig(
-            "post",
-            HOST + "employees/",
-            { "Content-Type": "application/json" },
-            dataP
-          );
-
-          axios(config)
-            .then(function (response) {
-              var employee = JSON.stringify(response.data);
-              //console.log("L'employé a été ajouté:\n" + employee);
-              setOpen(false);
-              setCharged(false);
-            })
-            .catch(() => {
-              //console.log( "Il y a eu un problème en essayant d'ajouter l'employé" );
-            });
-        }
-      }
-      if (found == 0) {
-        setShow2(true);
+        index = i;
+        break;
       }
     }
+    console.log("je suis LAAAAAA", found);    
+    if (found == 0) {
+      setShow2(true);
+    }
+    else{
+        //console.log("SWAG");
+      const availabilityF = {
+        Monday: "null",
+        Tuesday: "null",
+        Wednesday: "null",
+        Thursday: "null",
+        Friday: "null",
+        Saturday: "null",
+        Sunday: "null",
+      };
+      const nameF = usersList[index].firstName + " " + usersList[index].lastName;
+      if (nameF.length == 0 || emailF.length == 0 || roleF == "true") {
+        setShow(true);
+      } else {
+        setShow(false);
+        var dataP = JSON.stringify({
+          data: {
+            name: nameF,
+            availability: availabilityF,
+            role: roleF,
+            user: usersList[index],
+          },
+        });
+
+        //console.log("DATA P", dataP);
+        var config = setupConfig(
+          "post",
+          HOST + "employees/",
+          { "Content-Type": "application/json" },
+          dataP
+        );
+
+        axios(config)
+          .then(function (response) {
+            var employee = JSON.stringify(response.data);
+            console.log("L'employé a été ajouté:\n" + employee);
+            setOpen(false);
+          })
+          .catch(() => {
+            console.log( "Il y a eu un problème en essayant d'ajouter l'employé" );
+          });
+      }
+    }
+    
   }
+  
 
   return (
     <div>
@@ -183,6 +190,7 @@ export default function CreateEmployeeModal({ setCharged, usersList, employesLis
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
                       createEmployeeCall();
+                      setCharged(false);
                     }}
                   >
                     Ajouter

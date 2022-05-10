@@ -32,6 +32,16 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::video.video"
+    },
+    "cover": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

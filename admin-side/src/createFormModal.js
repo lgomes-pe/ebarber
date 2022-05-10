@@ -106,7 +106,7 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
       axios(config)
       .then(function (response) {
         const fileId = response.data[0].id;
-        //console.log("La video a été upload:\n" + fileId);
+        console.log("La video a été upload:\n" + fileId);
 
         var data = JSON.stringify({
           "data": {
@@ -121,7 +121,7 @@ export default function CreateFormModal({ setCharged, videoId, videosTitle }) {
         .then(function (response) {
           var video = JSON.stringify(response.data);
           var parsedVideo = JSON.parse(video);
-          //console.log("La video a été ajouté :\n" + parsedVideo.data.id);
+          console.log("La video a été ajouté :\n" + parsedVideo.data.id);
 
           if(videoId.length > 0){
             //console.log("ici1")
